@@ -1,0 +1,15 @@
+{% extends "index.html" %}
+{%load crispy_forms_tags %} 
+
+{% block content %}
+<div class="container-fluid m-5">
+    <h1>Register</h1>
+   <form method="POST" action="">
+        {% csrf_token %}
+        {{form|crispy}}
+        <input type="submit" class="btn btn-success" value="register">
+    </form>
+    <p>Already have account? <a href="{% url 'login' %}">login Here</a></p>
+</div>
+{% endblock  %}
+

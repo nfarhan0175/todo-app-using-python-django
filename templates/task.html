@@ -1,0 +1,27 @@
+{% extends "index.html" %}
+
+{% block title %}{{ task.title }}{% endblock %}
+
+{% block content %}
+<div class="container mt-4">
+    <div class="card p-4">
+        <h2 class="mb-3">Task Details</h2>
+        <p><strong>Title:</strong> {{ task.title }}</p>
+        <p><strong>Description:</strong> {{ task.description|default:"—" }}</p>
+        <p><strong>Created:</strong> {{ task.created }}</p>
+        <p><strong>Due Date:</strong> {{ task.due_date|default:"—" }}</p>
+        <p><strong>Completed:</strong> 
+            {% if task.completed %}
+                ✅ Yes
+            {% else %}
+                ❌ No
+            {% endif %}
+        </p>
+        <div class="mt-3">
+            <a href="{% url 'taskUpdate' task.id %}" class="btn btn-warning">Update</a>
+            <a href="{% url 'taskDelete' task.id %}" class="btn btn-danger">Delete</a>
+            <a href="{% url 'taskList' %}" class="btn btn-secondary">Back to List</a>
+        </div>
+    </div>
+</div>
+{% endblock %}

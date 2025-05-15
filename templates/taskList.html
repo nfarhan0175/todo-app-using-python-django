@@ -1,0 +1,74 @@
+{% extends "index.html" %}
+
+{% block title %}Task List{% endblock title %}task 
+{% block content %}
+<div class="container mt-4">
+        <!-- Search Bar -->
+        <form method="GET" class="d-flex mb-3">
+            <input type="text" name="search-area" class="form-control me-2" value="{{ search_input }}" placeholder="Search your task here" />
+            <button type="submit" class="btn btn-outline-secondary">Search</button>
+        </form>
+
+        <!-- Add Task Button -->
+        {% if user.is_authenticated %}
+            <div class="mb-3">
+                <a href="{% url 'taskCreate' %}" class="btn btn-success">Add Task</a>
+            </div>
+        {% endif %}
+
+        <!-- Task List -->
+        {% if tasks %}
+            <table class="table table-bordered table-striped mt-4">
+        <thead class="table-light">
+            <tr>
+                <th>Title</th>
+                <th>Description</th>
+                <th>Created</th>
+                <th>Due Date</th>
+                <th>Completed</th>
+                <th>Update</th>
+                <th>Delete</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for task in tasks %}
+                <tr>
+                    <td>
+                        {% if task.completed %}
+                            <s>{{ task.title }}</s>
+                        {% else %}
+                            {{ task.title }}
+                        {% endif %}
+                    </td>
+                    <td>{{ task.description|default:"—" }}</td>
+                    <td>{{ task.created }}</td>
+                    <td>{{ task.due_date|default:"—" }}</td>
+                    <td>
+                        {% if task.completed %}
+                            ✅
+                        {% else %}
+                            {% if task.due_date < today_date %}
+                                ❌
+                            {% else %}
+                                --------- 
+                            {% endif %}
+                        {% endif %}
+                    </td>
+                    <td>
+                        <a href="{% url 'taskUpdate' task.id %}" class="btn btn-sm btn-warning">Update</a>
+                    </td>
+                    <td>
+                        <a href="{% url 'taskDelete' task.id %}" class="btn btn-sm btn-danger">Delete</a>
+                    </td>
+                </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+        {% else %}
+            <div class="alert alert-info">
+                <h5>No tasks found.</h5>
+                <p>Create a <a href="{% url 'taskCreate' %}">new task</a>.</p>
+            </div>
+        {% endif %}
+    </div>
+{% endblock %}

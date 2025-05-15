@@ -1,0 +1,20 @@
+{% extends "index.html" %}
+
+{% block title %}Delete Task{% endblock %}
+
+{% block content %}
+<div class="container mt-5">
+    <div class="mb-3">
+        <a href="{% url 'taskList' %}" class="btn btn-secondary">← Go Back</a>
+    </div>
+
+    <div class="card p-4">
+        <h3>Are you sure you want to delete the task: <strong>{{ object.title }}</strong>?</h3>
+        <form method="POST" class="mt-3">
+            {% csrf_token %}
+            <button type="submit" class="btn btn-danger">Yes, Delete</button>
+            <a href="{% url 'taskList' %}" class="btn btn-outline-secondary">Cancel</a>
+        </form>
+    </div>
+</div>
+{% endblock %}

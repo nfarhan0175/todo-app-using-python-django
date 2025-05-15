@@ -1,0 +1,20 @@
+{% extends "index.html" %}
+{% load crispy_forms_tags %}
+{% block title %}Task Create{% endblock %}
+
+{% block content %}
+<div class="container mt-4">
+    <div class="mb-3">
+        <a href="{% url 'taskList' %}" class="btn btn-secondary">← Go Back</a>
+    </div>
+
+    <div class="card p-4">
+        <h4 class="mb-3">Create a New Task</h4>  {# You might change this dynamically #}
+        <form method="POST">
+            {% csrf_token %}
+            {{ form|crispy }}
+            <button type="submit" class="btn btn-success mt-3">Submit</button>
+        </form>
+    </div>
+</div>
+{% endblock %}

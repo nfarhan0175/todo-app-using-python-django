@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Todo App</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet">
+</head>
+<body>
+    <nav class="container-fluid navbar navbar-expand-lg navbar-light bg-light">
+        <a class="navbar-brand ms-5" href="#"><strong>TODO APP</strong></a>      
+        <div class="collapse navbar-collapse"></div>
+        <ul class="navbar-nav ml-auto">
+            {% if user.is_authenticated %}
+                <div class="d-flex m-3">
+                    <p class="m-3">{{ user.username }}</p>
+                    <a href="{% url 'logout' %}" class="btn btn-primary p-2">Logout</a>
+                </div>
+            {% else %}
+                <div class="d-flex">
+                    <a href="{% url 'register' %}" class="btn btn-success mx-3">Register</a>
+                    <a href="{% url 'login' %}" class="btn btn-primary">Login</a>
+                </div>
+            {% endif %}
+        </ul>
+    </nav>
+
+    {% block content %}
+    {% endblock %}
+</body>
+</html>
