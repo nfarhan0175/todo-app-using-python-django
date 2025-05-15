@@ -34,7 +34,7 @@
             {% for task in tasks %}
                 <tr>
                     <td>
-                        {% if task.completed %}
+                        {% if task.completed or task.due_date < today_date %}
                             <s>{{ task.title }}</s>
                         {% else %}
                             {{ task.title }}
@@ -48,7 +48,7 @@
                             ✅
                         {% else %}
                             {% if task.due_date < today_date %}
-                                ❌
+                                ✅
                             {% else %}
                                 --------- 
                             {% endif %}
